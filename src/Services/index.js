@@ -21,7 +21,7 @@ async function fecthCategories() {
 }
 
 async function fetchProductsByCategory(category) {
-  return await fetchData(`/products/categories/${category}`);
+  return await fetchData(`/products/category/${category}`);
 }
 
 async function fetchProductById(productId) {
