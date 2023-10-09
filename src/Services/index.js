@@ -16,6 +16,23 @@ async function fetchProducts() {
   return await fetchData("/products");
 }
 
-const productsApi = { fetchProducts };
+async function fecthCategories() {
+  return await fetchData("/products/categories");
+}
+
+async function fetchProductsByCategory(category) {
+  return await fetchData(`/products/categories/${category}`);
+}
+
+async function fetchProductById(productId) {
+  return await fetchData(`products/${productId}`);
+}
+
+const productsApi = {
+  fetchProducts,
+  fecthCategories,
+  fetchProductsByCategory,
+  fetchProductById,
+};
 
 export default productsApi;
