@@ -8,14 +8,26 @@ import Categories from "./Categories";
 const ShoppingCart = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const getProductsBySearchQuery = async (query) => {
+    const result = products.filter((product) =>
+      product.title
+        ?.split(" ")
+        .some((word) => word.toLowerCase().includes(query.toLowerCase()))
+    );
+    return result;
+  };
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         let data;
-        if (category) {
-          data = await productsApi.fetchProductsByCategory(category);
+        if (selectedCategory) {
+          data = await productsApi.fetchProductsByCategory(selectedCategory);
+        } else if (searchQuery) {
+          data = await getProductsBySearchQuery(searchQuery);
         } else {
           data = await productsApi.fetchProducts();
         }
@@ -25,12 +37,15 @@ const ShoppingCart = () => {
       }
     };
     getProducts();
-  }, [category]);
+  }, [selectedCategory, searchQuery]);
 
   return (
     <div>
-      <Search />
-      <Categories category={category} setCategory={setCategory} />
+      <Search query={searchQuery} setSearchQuery={setSearchQuery} />
+      <Categories
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <Button>My Cart</Button>
       {error && <p>{error.message}</p>}
       {products.map((product) => (

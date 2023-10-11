@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import productsApi from "../Services";
 
-const Categories = ({ category, setCategory }) => {
+const Categories = ({ selectedCategory, setSelectedCategory }) => {
   const [categories, setCategories] = useState([]);
 
   const getProductCategories = async () => {
@@ -19,15 +19,15 @@ const Categories = ({ category, setCategory }) => {
       <select
         name="categories"
         id="categories"
-        value={category}
+        value={selectedCategory}
         onChange={(e) => {
-          setCategory(e.target.value);
+          setSelectedCategory(e.target.value);
         }}
       >
         <option value="">Select category</option>
-        {categories.map((cat) => (
-          <option key={cat} value={cat}>
-            {cat}
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
           </option>
         ))}
       </select>
