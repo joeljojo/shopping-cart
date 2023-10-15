@@ -11,32 +11,42 @@ const ShoppingCart = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const getProductsBySearchQuery = async (query) => {
-    const result = products.filter((product) =>
-      product.title
-        ?.split(" ")
-        .some((word) => word.toLowerCase().includes(query.toLowerCase()))
-    );
-    return result;
-  };
+  // const getProductsBySearchQuery = async (query) => {
+  //   const result = products.filter((product) =>
+  //     product.title
+  //       ?.split(" ")
+  //       .some((word) => word.toLowerCase().includes(query.toLowerCase()))
+  //   );
+  //   return result;
+  // };
 
   useEffect(() => {
-    const getProducts = async () => {
+    const fetchProducts = async () => {
       try {
         let data;
         if (selectedCategory) {
           data = await productsApi.fetchProductsByCategory(selectedCategory);
         } else if (searchQuery) {
-          data = await getProductsBySearchQuery(searchQuery);
+          data = await productsApi.fetchProducts(); // Fetch all products
         } else {
           data = await productsApi.fetchProducts();
+        }
+        // Filter the data based on the search query
+        if (searchQuery) {
+          data = data.filter((product) =>
+            product.title
+              ?.split(" ")
+              .some((word) =>
+                word.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+          );
         }
         setProducts(data);
       } catch (error) {
         setError(error);
       }
     };
-    getProducts();
+    fetchProducts();
   }, [selectedCategory, searchQuery]);
 
   return (
@@ -48,7 +58,7 @@ const ShoppingCart = () => {
       />
       <Button>My Cart</Button>
       {error && <p>{error.message}</p>}
-      {products.map((product) => (
+      {products?.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </div>
