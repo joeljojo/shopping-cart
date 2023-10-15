@@ -1,12 +1,13 @@
-// import productsApi from "./Services";
-
+import ProductDescription from "./Components/ProductDescription";
 import ShoppingCart from "./Components/ShoppingCart";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <ShoppingCart />
-    </>
+    <Routes>
+      <Route path="/" Component={ShoppingCart} />
+      <Route path="/product/:id" Component={ProductDescription} />
+    </Routes>
   );
 }
 
