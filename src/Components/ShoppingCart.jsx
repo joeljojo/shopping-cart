@@ -27,7 +27,9 @@ const ShoppingCart = () => {
         if (selectedCategory) {
           data = await productsApi.fetchProductsByCategory(selectedCategory);
         } else if (searchQuery) {
-          data = await productsApi.fetchProducts(); // Fetch all products
+          // Fetch all results because you search through all products
+          // and not of a particular category
+          data = await productsApi.fetchProducts();
         } else {
           data = await productsApi.fetchProducts();
         }
