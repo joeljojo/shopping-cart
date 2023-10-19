@@ -12,6 +12,8 @@ const ProductDescription = () => {
     setProduct(data);
   };
 
+  const handleAddToCart = () => {};
+
   useEffect(() => {
     getProductById(id);
   }, []);
@@ -22,7 +24,7 @@ const ProductDescription = () => {
       <h2>{product.title}</h2>
       <p>{product.description}</p>
       <p>&#36; {product.price}</p>
-      <Button>Add To Cart</Button>
+      <Button onClick={handleAddToCart}>Add To Cart</Button>
     </div>
   );
 };
