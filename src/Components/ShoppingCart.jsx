@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
 import Product from "./Product";
 import Search from "./Search";
 import productsApi from "../Services/index";
 import Categories from "./Categories";
+import CartButton from "./CartButton";
 
 const ShoppingCart = () => {
   const [products, setProducts] = useState([]);
@@ -58,7 +58,7 @@ const ShoppingCart = () => {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <Button>My Cart</Button>
+      <CartButton />
       {error && <p>{error.message}</p>}
       {products?.map((product) => (
         <Product key={product.id} product={product} />

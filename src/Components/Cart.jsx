@@ -5,7 +5,6 @@ const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
-    console.log(item.id);
     //Check if item is in cart
     const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
     if (isItemInCart) {
@@ -57,7 +56,14 @@ const CartProvider = ({ children }) => {
   };
   return (
     <CartContext.Provider
-      value={{ addToCart, removeFromCart, emptyCart, cartSubTotal, cartTotal }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        emptyCart,
+        cartSubTotal,
+        cartTotal,
+      }}
     >
       {children}
     </CartContext.Provider>
