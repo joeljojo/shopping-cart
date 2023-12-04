@@ -11,6 +11,6 @@ const CartButton = () => {
     navigate("/my-cart");
   };
 
-  return <Button onClick={handleMyCart}>My Cart {cartItems.length}</Button>;
+  return <Button onClick={handleMyCart}>My Cart {cartItems.length > 0 && cartItems.length}</Button>;
 };
 export default CartButton;
